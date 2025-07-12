@@ -1,0 +1,5 @@
+1. Fast API
+2. Deploying ML model with Fast API
+3. Deploying ML model with Docker
+
+https://towardsdatascience.com/deploying-ml-models-in-production-with-fastapi-and-celery-7063e539a5db/
