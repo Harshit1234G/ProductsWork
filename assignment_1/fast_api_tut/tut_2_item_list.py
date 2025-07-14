@@ -1,9 +1,15 @@
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import uvicorn
 
 
 app = FastAPI()
 items = []
+
+
+class Item(BaseModel):
+    text: str
+    is_done: bool = False
 
 
 @app.get('/')
@@ -12,9 +18,14 @@ def root() -> dict[str, str]:
 
 
 @app.post('/items')
-def create_item(item: str) -> list[str]:
+def create_item(item: Item) -> list[Item]:
     items.append(item)
     return items
+
+
+@app.get('/items')
+def list_items(limit: int = 10):
+    return items[0:limit]
 
 
 @app.get('/items/{index}')
