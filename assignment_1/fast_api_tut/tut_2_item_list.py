@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import uvicorn
 
 
@@ -17,10 +17,13 @@ def create_item(item: str) -> list[str]:
     return items
 
 
-@app.get('/items/{item_id}')
-def get_item(item_id: int) -> str:
-    item = items[item_id]
-    return item
+@app.get('/items/{index}')
+def get_item(index: int) -> str:
+    if index < len(items):
+        return items[index]
+    
+    else:
+        raise HTTPException(status_code= 404, detail= f'Item with index {index} not found.')
 
 
 if __name__ == '__main__':
