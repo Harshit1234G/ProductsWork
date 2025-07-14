@@ -12,24 +12,24 @@ class Item(BaseModel):
     is_done: bool = False
 
 
-@app.get('/')
-def root() -> dict[str, str]:
+@app.get('/', response_model= dict[str, str])
+def root():
     return {'Hello': 'World'}
 
 
-@app.post('/items')
-def create_item(item: Item) -> list[Item]:
+@app.post('/items', response_model= list[Item])
+def create_item(item: Item):
     items.append(item)
     return items
 
 
-@app.get('/items')
+@app.get('/items', response_model= list[Item])
 def list_items(limit: int = 10):
     return items[0:limit]
 
 
-@app.get('/items/{index}')
-def get_item(index: int) -> str:
+@app.get('/items/{index}', response_model= Item)
+def get_item(index: int):
     if index < len(items):
         return items[index]
     
