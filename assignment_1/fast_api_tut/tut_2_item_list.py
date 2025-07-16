@@ -26,6 +26,7 @@ class Item(BaseModel):
     is_done: bool = False
 
 
+# @app.get('/') tells FastAPI to handle HTTP GET requests sent to the root URL (/) by executing the function below it (root).
 @app.get('/', response_model= dict[str, str])
 def root():
     """
@@ -36,6 +37,9 @@ def root():
         dict[str, str]: A message like {"Hello": "World"}
     """
     return {'Hello': 'World'}
+
+
+# This code creates a POST endpoint. Similarly, we can perform different CRUD operations like PUT, PATCH and DELETE using FastAPI.
 
 
 @app.post('/items', response_model= list[Item])
@@ -92,3 +96,4 @@ def get_item(index: int):
 if __name__ == '__main__':
     # Launch the app with Uvicorn server on default host (127.0.0.1) and port (8000)
     uvicorn.run(app)
+    # or can use the command uvicorn <file_name>:app --reload
